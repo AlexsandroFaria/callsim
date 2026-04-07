@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Controle de Chamados
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="container text-center mt-4">
+    <h1 class="display-2 text-primary fw-bold">Controle de Chamados</h1>
+    <img alt="imagem de Home" class="rounded-4 mt-4" src="{{url_for('static', filename='img/home.png')}}">
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="p-3 border border-primary text-center">
+                <img src="{{ url_for('static', filename='img/chamados.png') }}" alt="Imagem de cadastrar chamados"><br>
+                <a href="{{url_for('lista_chamado')}}" class="btn btn-primary mt-2 w-50">Chamados</a>
+                <p class="mt-2">Cadastro e manutenção de chamados</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4 mb-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="p-3 border border-primary text-center">
+                <img src="{{ url_for('static', filename='img/usuario.png') }}" alt="Imagen de lista"><br>
+                <a href="{{ url_for('lista_usuario') }}" class="btn btn-primary btn-sm mt-2 w-50">Usuários</a>
+                <p class="mt-2">Lista os Usuários cadastrados no sistema</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="p-3 border border-primary text-center">
+                <img src="{{ url_for('static', filename='img/itens.png') }}" alt="Imagen de lista"><br>
+                <a href="{{ url_for('itens') }}" class="btn btn-primary btn-sm mt-2 w-50">Itens</a>
+                <p class="mt-2">Cadastro de Itens</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="p-3 border border-primary text-center">
+                <img src="{{ url_for('static', filename='img/logout.png') }}" alt="Imagen de lista"><br>
+                <a href="{{url_for('logout')}}" class="btn btn-primary btn-sm mt-2 w-50">Logout</a>
+                <p class="mt-2">Lista os Usuários cadastrados no sistema</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-2 text-center mt-4">
+    <p class="text-primary">Site para cadastro, consulta e organização de chamados e Projetos<br>
+    Desenvolvido por: Alexsandro Luiz de Faria<br>
+    Email: alexsandro.lfaria@gmail.com</p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+Chamados Encerrados
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="container-fluid px-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="text-center">
+                <img src="{{url_for('static', filename='img/banner_chamados.png')}}" class="img-fluid h3 mb-3 mt-4">
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-dark mt-4 w-100 align-middle table-lg-custom">
+                    <thead>
+                    <tr>
+                        <th class="text-primary">Solicitação</th>
+                        <th class="text-primary">ID OS Corporate</th>
+                        <th class="text-primary">Produto</th>
+                        <th class="text-primary">Contrato/Item</th>
+                        <th class="text-primary">Nome do Cliente</th>
+                        <th class="text-primary">Descrição do Encerramento</th>
+                        <th class="text-primary">Situação</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for linha in dados_chamado_encerrado %}
+                    <tr>
+                        <td>{{ linha.solicitacao }}</td>
+                        <td>{{ linha.id_os_corporate }}</td>
+                        <td>{{ linha.produto }}</td>
+                        <td>{{ linha.contrato_item }}</td>
+                        <td>{{ linha.nome_cliente }}</td>
+                        <td>{{ linha.descricao_encerramento }}</td>
+                        <td style="color: red; font-weight: bold;">
+                            {{ linha.situacao }}
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="d-flex gap-5 justify-content-center align-items-center mb-3">
+            <a href="{{ url_for('home') }}" class="btn btn-lg btn-primary w-25"><img
+                    src="{{ url_for('static', filename='img/home-preto.png') }}" class="me-4 img-fluid">Home</a>
+            <a href="{{url_for('gerar_relatorio_chamado_encerrado')}}" class="btn btn-lg btn-primary w-25"><img
+                    src="{{ url_for('static', filename='img/relatorio.png') }}" class="me-4 img-fluid">Gerar Relatório</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

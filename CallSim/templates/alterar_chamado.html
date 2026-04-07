@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+Encerrar Chamado
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="col-16">
+            <div class="container text-center">
+                <div class="row">
+                    <div>
+                        <img src="{{url_for('static', filename='img/banner_chamados.png')}}"
+                             class="img-fluid h3 mb-3 mt-4">
+                    </div>
+                    <h1 class="h3 mb-3 text-primary display-4">Alterar Chamado</h1>
+                </div>
+
+                <form method="POST" class="form-register border border-primary p-4" id="formEncerrar" style="color: whitesmoke;">
+                    {{ form.hidden_tag() }}
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form.solicitacao.label()}}
+                            {{ form.solicitacao(class="form-control", placeholder="Informe o número", readonly=true, disabled=true) }}
+                        </div>
+                        <div class="col-md-8">
+                            {{ form.assunto.label()}}
+                            {{ form.assunto(class="form-control", placeholder="Informe o Assunto", readonly=true, disabled=true) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form.id_os_corporate.label()}}
+                            {{ form.id_os_corporate(class="form-control", placeholder="Chamado Corporate", readonly=true, disabled=true) }}
+                        </div>
+                        <div class="col-md-8">
+                            {{ form.tipo_solicitacao.label()}}
+                            {{ form.tipo_solicitacao(class="form-control", readonly=true, disabled=true) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            {{ form.produto.label()}}
+                            {{ form.produto(class="form-control", readonly=true, disabled=true) }}
+                        </div>
+                        <div class="col-md-2">
+                            {{ form.contrato_item.label()}}
+                            {{ form.contrato_item(class="form-control", placeholder="Contrato/iten", readonly=true, disabled=true) }}
+                        </div>
+                        <div class="col-md-8">
+                            {{ form.nome_cliente.label()}}
+                            {{ form.nome_cliente(class="form-control", placeholder="Nome do cliente", readonly=true, disabled=true) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.nome_contato.label()}}
+                            {{ form.nome_contato(class="form-control", placeholder="Nome do ponto focal") }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.telefone_contato.label()}}
+                            {{ form.telefone_contato(class="form-control", placeholder="Número do telefone") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form.email_contato.label()}}
+                            {{ form.email_contato(class="form-control", placeholder="Número do telefone") }}
+                        </div>
+                        <div class="col-md-8">
+                            {{ form.descricao.label()}}
+                            {{ form.descricao(class="form-control", placeholder="Descrição do Chamado", readonly=true, disabled=true) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.historico_mensagem.label()}}
+                            {{ form.historico_mensagem(class="form-control", placeholder="Histórico do Chamado") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.situacao.label()}}
+                            {{ form.situacao(class="form-control") }}
+                        </div>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="button" class="btn btn-lg btn-success" data-bs-toggle="modal" data-bs-target="#encerrarChamado">
+                            Alterar Chamado
+                        </button>
+                    </div>
+
+                </form>
+                <div class="text-center mt-4 mb-5">
+                    <a href="{{url_for('lista_chamado')}}" class="btn btn-lg btn-primary w-50"><img
+                            src="{{url_for('static', filename='img/voltar.png')}}" class="me-4">Voltar</img></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="encerrarChamado" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light border-danger">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title">Confirmar Atualizar do Chamado?</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-start">
+                <p>Você está prestes a Atualizar o Chamado <strong>{{ form.solicitacao.data }}</strong>.</p>
+                <p class="text-muted small">Esta ação não pode ser desfeita.</p>
+            </div>
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" form="formEncerrar" class="btn btn-success px-5 fw-bold">
+                    Sim, Alterar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

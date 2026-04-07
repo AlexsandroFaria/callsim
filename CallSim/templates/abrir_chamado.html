@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Abrir Chamado
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="col-16">
+            <div class="container text-center">
+                <div class="row">
+                    <div>
+                        <img src="{{url_for('static', filename='img/banner_chamados.png')}}"
+                             class="img-fluid h3 mb-3 mt-4">
+                    </div>
+                    <h1 class="h3 mb-3 text-primary display-4">Abertura de Chamado</h1>
+                </div>
+
+                <form method="POST" class="form-register border border-primary p-4" style="color: whitesmoke;">
+                    {{ form.hidden_tag() }}
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form.solicitacao.label()}}
+                            {{ form.solicitacao(class="form-control", placeholder="Informe o número") }}
+                        </div>
+                        <div class="col-md-8">
+                            {{ form.assunto.label()}}
+                            {{ form.assunto(class="form-control", placeholder="Informe o Assunto") }}
+                        </div>
+                    </div>
+                     <div class="row">
+                         <div class="col-md-4">
+                            {{ form.id_os_corporate.label()}}
+                            {{ form.id_os_corporate(class="form-control", placeholder="Chamado Corporate") }}
+                         </div>
+                         <div class="col-md-8">
+                            {{ form.tipo_solicitacao.label()}}
+                            {{ form.tipo_solicitacao(class="form-control") }}
+                        </div>
+                     </div>
+                    <div class="row">
+                         <div class="col-md-2">
+                             {{ form.produto.label()}}
+                             {{ form.produto(class="form-control") }}
+                         </div>
+                        <div class="col-md-2">
+                             {{ form.contrato_item.label()}}
+                             {{ form.contrato_item(class="form-control", placeholder="Contrato/iten") }}
+                         </div>
+                        <div class="col-md-8">
+                             {{ form.nome_cliente.label()}}
+                             {{ form.nome_cliente(class="form-control", placeholder="Nome do cliente") }}
+                         </div>
+                    </div>
+                    <div class="row">
+                         <div class="col-md-6">
+                             {{ form.nome_contato.label()}}
+                             {{ form.nome_contato(class="form-control", placeholder="Nome do ponto focal") }}
+                         </div>
+                        <div class="col-md-6">
+                             {{ form.telefone_contato.label()}}
+                             {{ form.telefone_contato(class="form-control", placeholder="Número do telefone") }}
+                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form.email_contato.label()}}
+                            {{ form.email_contato(class="form-control", placeholder="Informe o E-mail") }}
+                        </div>
+                        <div class="col-md-8">
+                            {{ form.descricao.label()}}
+                            {{ form.descricao(class="form-control", placeholder="Descrição do Chamado") }}
+                        </div>
+                        <div class="col-md-12 text-center">
+                            {{ form.situacao.label()}}
+                            {{ form.situacao(class="form-control") }}
+                        </div>
+                    </div>
+                    <div class="d-grid mt-4">
+                        {{ form.submit(class="btn btn-lg btn-success") }}
+                    </div>
+                </form>
+                <div class="text-center mt-4 mb-5">
+                    <a href="{{url_for('lista_chamado')}}" class="btn btn-lg btn-primary w-50"><img src="{{url_for('static', filename='img/voltar.png')}}" class="me-4">Voltar</img></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

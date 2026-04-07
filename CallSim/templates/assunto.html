@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Controle de Chamados
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="container row">
+        <div class="col-12">
+            <div class="text-center">
+                <img src="{{url_for('static', filename='img/banner_situacao.png')}}" class="img-fluid h3 mb-3 mt-4">
+            </div>
+
+            <table class="table table-striped table-hover table-dark mt-4">
+                <thead>
+                <tr>
+                    <th class="text-primary">Nome do Assunto</th>
+                    <th class="text-danger">Excluir</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for linha in dados_assunto %}
+                <tr>
+                    <td>{{ linha.assunto }}</td>
+                    <td>
+                        <form action="{{ url_for('excluir_assunto', assunto_id=linha.id) }}" method="POST">
+                            <button type="button" class="btn btn-outline-danger btn-sm"
+                            data-bs-toggle="modal" data-bs-target="#modalExcluir{{ linha.id }}">
+                                <img src="{{url_for('static', filename='img/excluir.png')}}"> <i class="bi bi-trash"></i> Excluir
+                            </button>
+
+                            <div class="modal fade" id="modalExcluir{{ linha.id }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content bg-dark text-light border-danger">
+                                        <div class="modal-header border-secondary">
+                                            <h5 class="modal-title">Confirmar Exclusão</h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body text-start">
+                                            <p>Você está prestes a excluir a Situação <strong>{{ linha.assunto }}</strong>.</p>
+                                            <p class="text-muted small">Esta ação não pode ser desfeita.</p>
+                                        </div>
+                                        <div class="modal-footer border-secondary">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <form action="{{ url_for('excluir_usuario', usuario_id=linha.id) }}" method="POST" style="display:inline;">
+                                                <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<div class="d-flex justify-content-center align-items-center mt-4">
+    <div class="row col-8">
+        <form method="POST" class="form-register border border-primary p-4" style="color: whitesmoke;">
+            <h1 class="display-6 text-primary">Cadastrar Assunto</h1>
+            {{ form.hidden_tag() }}
+
+            {{ form.assunto.label()}}
+            {{ form.assunto(class="form-control", placeholder="Informe o nome do Assunto") }}
+
+            <div class="d-grid mt-4">
+                {{ form.submit(class="btn btn-lg btn-success") }}
+            </div>
+        </form>
+    </div>
+</div>
+<div class="d-flex gap-5 justify-content-center align-items-center mt-4 mb-5">
+    <a href="{{ url_for('itens') }}" class="btn btn-lg btn-primary w-25"><img src="{{ url_for('static', filename='img/voltar.png') }}" class="me-4 img-fluid">Voltar</a>
+</div>
+<style>
+    /* Ajuste para o botão ficar mais elegante */
+    .btn-delete-custom {
+        transition: all 0.3s ease;
+        border-radius: 20px;
+        padding: 5px 15px;
+    }
+    .btn-delete-custom:hover {
+        background-color: #dc3545;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+    }
+</style>
+
+{% endblock %}

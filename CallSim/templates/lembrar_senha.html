@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Lembrar Senha
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="col-10">
+        <body>
+        <div class="container col-10 text-center">
+            <div class="row">
+                <div>
+                    <img src="{{url_for('static', filename='img/img_senha.png')}}" class="img-fluid h3 mb-3 mt-4">
+                </div>
+                <h1 class="h3 mb-3 text-primary display-4">Lembrar Senha</h1>
+            </div>
+
+            <form method="POST" class="form-register border p-4" style="color: whitesmoke;">
+                {{ form.hidden_tag() }}
+
+                {{ form.nome.label()}}
+                {{ form.nome(class="form-control", placeholder="informe o nome conpleto informado no cadastro") }}
+
+                {{ form.email.label()}}
+                {{ form.email(class="form-control", placeholder="Informe o e-mail cadastrado") }}
+
+                <div class="d-grid mt-4">
+                    {{ form.submit(class="btn btn-lg btn-success") }}
+                </div>
+            </form>
+            <div class="d-flex gap-5 justify-content-center align-items-center">
+                <a href="{{url_for('index')}}" class="btn btn-lg btn-primary w-25 mt-4">Voltar para o Login</a>
+            </div>
+
+            <div class="modal fade" id="resultadoModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title display-6 text-primary">Lembrete de Senha</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-striped table-hover table-dark mt-4">
+                                <thead>
+                                <tr>
+                                    <th class="text-primary">Nome</th>
+                                    <th class="text-primary">E-mail</th>
+                                    <th class="text-primary">Usuário</th>
+                                    <th class="text-primary">Lembrete da Senha</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if resultado %}
+                                {% for result in resultado %}
+                                <tr>
+                                    <td>{{ result.nome }}</td>
+                                    <td>{{ result.email }}</td>
+                                    <td>{{ result.usuario }}</td>
+                                    <td>{{ result.lembrete_senha }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                                {% else %}
+                                <p class="text-danger">Nenhum usuários encontrado com esses critério.</p>
+                                {% endif %}
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net"></script>
+
+            <style>
+                .modal-content{
+                    background-color: #212121;
+                    color: whitesmoke;
+                }
+            </style>
+            {% if abrir_modal %}
+            <script>
+                // Aguarda o DOM estar pronto
+                document.addEventListener("DOMContentLoaded", function() {
+                    var modalElement = document.getElementById('resultadoModal');
+                    if (modalElement) {
+                        var meuModal = new bootstrap.Modal(modalElement);
+                        meuModal.show();
+                    }
+                });
+            </script>
+            {% endif %}
+
+        </div>
+        </body>
+    </div>
+</div>
+
+{% endblock %}

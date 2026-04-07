@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Cadastro de Usuários
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="col-16">
+            <div class="container text-center">
+                <div class="row">
+                    <div>
+                        <img src="{{url_for('static', filename='img/banner_usuarios.png')}}"
+                             class="img-fluid h3 mb-3 mt-4">
+                    </div>
+                    <h1 class="h3 mb-3 text-primary display-4">Cadastro de Usuários</h1>
+                </div>
+
+                <form method="POST" class="form-register border border-primary p-4" style="color: whitesmoke;">
+                    {{ form.hidden_tag() }}
+
+                    {{ form.nome.label() }}
+                    {{ form.nome(class="form-control", placeholder="Informe seu nome completo") }}
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.usuario.label() }}
+                            {{ form.usuario(class="form-control", placeholder="Informe seu usuário") }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.email.label() }}
+                            {{ form.email(class="form-control", placeholder="Informe seu email") }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.senha1.label() }}
+                            {{ form.senha1(class="form-control", placeholder="Informe sua Senha") }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.senha2.label() }}
+                            {{ form.senha2(class="form-control", placeholder="Confirme a senha") }}
+                        </div>
+                    </div>
+
+                    {{ form.lembrete_senha.label() }}
+                    {{ form.lembrete_senha(class="form-control", placeholder="Informe um lembrete para a senha") }}
+
+                    <div class="d-grid mt-4">
+                        {{ form.submit(class="btn btn-lg btn-success") }}
+                    </div>
+                </form>
+                <div class="text-center mt-4">
+                    <a href="{{url_for('lista_usuario')}}" class="btn btn-lg btn-primary w-50"><img src="{{url_for('static', filename='img/voltar.png')}}" class="me-4">Voltar</img></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
