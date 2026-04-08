@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Importação de Chamados
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="col-12 col-md-10 mx-auto">
+            <div class="container text-center">
+                <div class="row">
+                    <div>
+                        <img src="{{url_for('static', filename='img/banner_chamados.png')}}"
+                             class="img-fluid h3 mb-3 mt-4" onerror="this.style.display='none'">
+                    </div>
+                    <h1 class="h3 mb-3 text-primary display-4">Importação em Lote</h1>
+                </div>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="alert alert-{{ category }} mb-3" role="alert">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+
+                <form method="POST" enctype="multipart/form-data" class="form-register border border-primary p-4 text-start" style="color: honeydew;" novalidate>
+                    {{ form.hidden_tag() }}
+
+                    <div class="mb-4">
+                        <label for="arquivo_csv" class="form-label h5">Selecione o Arquivo CSV</label>
+                        {{ form.arquivo_csv(class="form-control form-control-lg") }}
+
+                        {% if form.arquivo_csv.errors %}
+                            {% for error in form.arquivo_csv.errors %}
+                                <div class="text-danger mt-2 small">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="form-text mt-2" style="color: #a8b0a8;">
+                            O arquivo deve conter as colunas: solicitacao, assunto, id_os_corporate, etc.
+                        </div>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        {{ form.submit(class="btn btn-lg btn-success", value="Processar Importação") }}
+                    </div>
+                </form>
+
+                <div class="text-center mt-4">
+                    <a href="{{url_for('index')}}" class="btn btn-lg btn-primary w-50">
+                        <img src="{{url_for('static', filename='img/voltar.png')}}" class="me-4" onerror="this.style.display='none'">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

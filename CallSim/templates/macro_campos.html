@@ -1,0 +1,17 @@
+{% macro render_field(field, label_class="text-dark") %}
+  <div class="form-group">
+    {# Renderiza o label com a classe que você desejar #}
+    {{ field.label(class="label_class text-light") }}
+
+    {# O **kwargs aqui vai injetar o ID, as classes extras, etc. #}
+    {{ field(class="form-control " + ("is-invalid" if field.errors else ""), **kwargs) }}
+
+    {% if field.errors %}
+      {% for error in field.errors %}
+        <div class="invalid-feedback" style="display: block; color: red;">
+          {{ error }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endmacro %}

@@ -72,3 +72,4 @@ class ChamadoEncerrado(db.Model):
     historico_mensagem = db.Column(db.String(250), nullable=False)
     descricao_encerramento = db.Column(db.String(220), nullable=False)
     situacao = db.Column(db.String(100), nullable=False)
+

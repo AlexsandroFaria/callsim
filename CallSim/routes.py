@@ -1,13 +1,15 @@
 import io
+import csv
 from sqlite3 import IntegrityError
 from sys import exception
 from flask_login import login_user, logout_user, login_required
 from flask import render_template, redirect, url_for, flash, send_file
 from CallSim import app, db
 from CallSim.form import LoginForm, UsuarioForm, ProdutoForm, SolicitacaoForm, ChamadoForm, LembrarSenhaForm, \
-    SituacaoForm, EncerrarChamadoForm, AssuntoForm, ChamadoAlteradoForm
+    SituacaoForm, EncerrarChamadoForm, AssuntoForm, ChamadoAlteradoForm, CsvImportForm
 from CallSim.models import Usuario, Produto, TipoDeSolicitacao, Chamado, Situacao, ChamadoEncerrado, Assunto
 import pandas as pd
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -92,12 +94,13 @@ def cadastro_usuario():
         db.session.rollback()
         flash(f'Erro inesperado: {ie}', category='danger')
 
+    """
     if form.errors:
         for field, errors in form.errors.items():
             for error in errors:
                 # Isso vai pegar o erro do EqualTo e transformar em Flash
                 flash(f"Erro no campo {getattr(form, field).label.text}: {error}", category='danger')
-
+    """
     return render_template('cadastro_usuario.html', form=form)
 
 @app.route('/excluir_usuario/<int:usuario_id>', methods=['POST'])
@@ -257,10 +260,6 @@ def abrir_chamado():
         flash(f'Chamado {chamado.solicitacao} aberto com sucesso!', category='success')
         return redirect(url_for('lista_chamado'))
     print(form.errors)
-    if form.errors != {}:
-        for err in form.errors.values():
-            print(err)
-            flash(f"Erro ao cadastrar Chamado {err}", category="danger")
 
     return render_template('abrir_chamado.html', form=form)
 
@@ -429,4 +428,43 @@ def alterar_chamado(chamado_id):
     return render_template('alterar_chamado.html', form=form)
 
 
+@app.route('/importar_chamados/', methods=['GET', 'POST'])
+def importar_chamados():
+    form = CsvImportForm()
+
+    if form.validate_on_submit():
+        file = form.arquivo_csv.data
+
+        # Converte o arquivo para um stream de texto
+        stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
+        csv_input = csv.DictReader(stream)
+
+        try:
+            for row in csv_input:
+                novo_chamado = Chamado(
+                    solicitacao=row['solicitacao'],
+                    assunto=row['assunto'],
+                    id_os_corporate=row['id_os_corporate'],
+                    tipo_solicitacao=row['tipo_solicitacao'],
+                    produto=row['produto'],
+                    contrato_item=row['contrato_item'],
+                    nome_cliente=row['nome_cliente'],
+                    nome_contato=row['nome_contato'],
+                    telefone_contato=row['telefone_contato'],
+                    email_contato=row['email_contato'],
+                    descricao=row['descricao'],
+                    historico_mensagem=row['historico_mensagem'],
+                    situacao=row['situacao']
+                )
+                db.session.add(novo_chamado)
+
+            db.session.commit()
+            flash('Importação realizada com sucesso!', 'success')
+            return redirect(url_for('home'))  # ou sua rota principal
+
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Erro ao processar CSV: {str(e)}', 'danger')
+
+    return render_template('importacao_arquivo_csv.html', form=form)
 

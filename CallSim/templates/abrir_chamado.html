@@ -18,13 +18,13 @@
                     <h1 class="h3 mb-3 text-primary display-4">Abertura de Chamado</h1>
                 </div>
 
-                <form method="POST" class="form-register border border-primary p-4" style="color: whitesmoke;">
+                {% import "macro_campos.html" as m %}
+                <form method="POST" class="form-register border border-primary p-4" novalidate>
                     {{ form.hidden_tag() }}
 
                     <div class="row">
                         <div class="col-md-4">
-                            {{ form.solicitacao.label()}}
-                            {{ form.solicitacao(class="form-control", placeholder="Informe o número") }}
+                            {{ m.render_field(form.solicitacao) }}
                         </div>
                         <div class="col-md-8">
                             {{ form.assunto.label()}}
@@ -33,8 +33,7 @@
                     </div>
                      <div class="row">
                          <div class="col-md-4">
-                            {{ form.id_os_corporate.label()}}
-                            {{ form.id_os_corporate(class="form-control", placeholder="Chamado Corporate") }}
+                            {{ m.render_field(form.id_os_corporate) }}
                          </div>
                          <div class="col-md-8">
                             {{ form.tipo_solicitacao.label()}}
@@ -47,32 +46,26 @@
                              {{ form.produto(class="form-control") }}
                          </div>
                         <div class="col-md-2">
-                             {{ form.contrato_item.label()}}
-                             {{ form.contrato_item(class="form-control", placeholder="Contrato/iten") }}
+                             {{ m.render_field(form.contrato_item) }}
                          </div>
                         <div class="col-md-8">
-                             {{ form.nome_cliente.label()}}
-                             {{ form.nome_cliente(class="form-control", placeholder="Nome do cliente") }}
+                             {{ m.render_field(form.nome_cliente) }}
                          </div>
                     </div>
                     <div class="row">
                          <div class="col-md-6">
-                             {{ form.nome_contato.label()}}
-                             {{ form.nome_contato(class="form-control", placeholder="Nome do ponto focal") }}
+                             {{ m.render_field(form.nome_contato) }}
                          </div>
                         <div class="col-md-6">
-                             {{ form.telefone_contato.label()}}
-                             {{ form.telefone_contato(class="form-control", placeholder="Número do telefone") }}
+                             {{ m.render_field(form.telefone_contato) }}
                          </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            {{ form.email_contato.label()}}
-                            {{ form.email_contato(class="form-control", placeholder="Informe o E-mail") }}
+                            {{ m.render_field(form.email_contato) }}
                         </div>
                         <div class="col-md-8">
-                            {{ form.descricao.label()}}
-                            {{ form.descricao(class="form-control", placeholder="Descrição do Chamado") }}
+                            {{ m.render_field(form.descricao) }}
                         </div>
                         <div class="col-md-12 text-center">
                             {{ form.situacao.label()}}
